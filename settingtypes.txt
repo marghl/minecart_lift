@@ -1,0 +1,3 @@
+# Vertical minecart speed in nodes per second.
+minecart_lift_speed (Minecart lift speed) float 3 0.1 50
+
