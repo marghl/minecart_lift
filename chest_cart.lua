@@ -5,9 +5,9 @@ local S = minecart_lift.S
 local cart_name = "minecart_lift:chest_cart"
 local entity_name = "minecart_lift:chest_cart_entity"
 local inventory_size = 32
-local chest_top = "default_chest_top.png"
-local chest_side = "default_chest_side.png"
-local chest_front = "default_chest_front.png"
+local chest_top = "minecart_lift_chest_top.png"
+local chest_side = "minecart_lift_chest_side.png"
+local chest_front = "minecart_lift_chest_front.png"
 
 -- Present the same 8 by 4 storage area as a standard chest. The original
 -- layout is shifted down uniformly to make room for the assigned cart number.
@@ -92,12 +92,14 @@ minetest.register_node(cart_name, {
    node_box = {
       type = "fixed",
       fixed = {
+         -- The lower cart occupies 6 of the total 16 vertical texture pixels.
          {-0.5, -0.5, -0.5, 0.5, -0.375, 0.5},
-         {-0.5, -0.5, -0.5, -0.375, 0.125, 0.5},
-         {0.375, -0.5, -0.5, 0.5, 0.125, 0.5},
-         {-0.5, -0.5, -0.5, 0.5, 0.125, -0.375},
-         {-0.5, -0.5, 0.375, 0.5, 0.125, 0.5},
-         {-0.375, -0.25, -0.375, 0.375, 0.5, 0.375},
+         {-0.5, -0.5, -0.5, -0.375, -0.125, 0.5},
+         {0.375, -0.5, -0.5, 0.5, -0.125, 0.5},
+         {-0.5, -0.5, -0.5, 0.5, -0.125, -0.375},
+         {-0.5, -0.5, 0.375, 0.5, -0.125, 0.5},
+         -- The inset chest uses the remaining 10 vertical pixels.
+         {-0.375, -0.125, -0.375, 0.375, 0.5, 0.375},
       },
    },
    selection_box = {
