@@ -54,7 +54,13 @@ carts:register_rail(upper_rail_name, {
    tiles = {"minecart_lift_rope.png"},
    inventory_image = "blank.png",
    wield_image = "blank.png",
-   groups = carts:get_rail_groups({not_in_creative_inventory = 1}),
+   -- Unlike an ordinary rail, the generated upper endpoint hangs freely in
+   -- the shaft. Disable attached-node support checks so removing an adjacent
+   -- rail does not make the engine delete this functional endpoint.
+   groups = carts:get_rail_groups({
+      not_in_creative_inventory = 1,
+      attached_node = 0,
+   }),
    paramtype = "light",
    sunlight_propagates = true,
    walkable = false,

@@ -295,6 +295,10 @@ local function finish_lift_travel(entity, travel)
       entity.object:set_velocity({x = 0, y = 0, z = 0})
       if travel.is_carts_cart then
          entity.velocity = {x = 0, y = 0, z = 0}
+         -- Confirm the reached endpoint even when no outgoing rail exists.
+         -- Otherwise carts:pathfinder treats the old upper endpoint as the
+         -- last valid position and instantly snaps the cart back there.
+         entity.old_pos = vector.new(travel.target)
          entity.punched = false
       end
    end
@@ -413,11 +417,75 @@ local function wrap_entity(entity_name)
    if not original_on_step then
       return
    end
+   local original_on_activate = definition.on_activate
    local original_on_deactivate = definition.on_deactivate
+   local original_get_staticdata = definition.get_staticdata
 
    -- Mark definitions because multiple mods-loaded callbacks must not wrap the
    -- same function repeatedly.
    definition._minecart_lift_wrapped = true
+
+   -- Minetest Game carts are not part of minecart's monitoring database. Add
+   -- an extension to their normal static data so a lift trip survives a
+   -- singleplayer logout, which shuts down and restarts the local server.
+   if entity_name == "carts:cart" then
+      definition.get_staticdata = function(entity)
+         local staticdata = original_get_staticdata and original_get_staticdata(entity)
+         local data = minetest.deserialize(staticdata or "")
+         if type(data) ~= "table" then
+            data = {}
+         end
+
+         local travel = entity._minecart_lift_travel
+         if travel then
+            data.minecart_lift_travel = {
+               target = vector.new(travel.target),
+               direction = travel.direction,
+               resume_direction = vector.new(travel.resume_direction),
+               resume_speed = travel.resume_speed,
+            }
+         end
+         return minetest.serialize(data)
+      end
+
+      -- Restore vertical movement before the first entity step. The engine
+      -- already restores the entity position, so only the destination and
+      -- movement state have to be reconstructed from the static data.
+      definition.on_activate = function(entity, staticdata, dtime_s)
+         if original_on_activate then
+            original_on_activate(entity, staticdata, dtime_s)
+         end
+
+         local data = minetest.deserialize(staticdata or "")
+         local saved = type(data) == "table" and data.minecart_lift_travel
+         if not saved or not saved.target then
+            return
+         end
+
+         local current = entity.object:get_pos()
+         local target = vector.new(saved.target)
+         entity._minecart_lift_travel = {
+            start_y = current.y,
+            target = target,
+            direction = saved.direction or (target.y > current.y and 1 or -1),
+            is_carts_cart = true,
+            resume_direction = saved.resume_direction
+               and vector.new(saved.resume_direction) or {x = 1, y = 0, z = 0},
+            resume_speed = saved.resume_speed or 2,
+         }
+         entity.punched = false
+         entity.velocity = {x = 0, y = 0, z = 0}
+         update_forceload(entity, current, target)
+         entity.object:set_velocity({
+            x = 0,
+            y = entity._minecart_lift_travel.direction * minecart_lift.speed,
+            z = 0,
+         })
+         minetest.log("action", "[minecart_lift] Restored carts:cart in lift at "
+            .. minetest.pos_to_string(vector.round(current)))
+      end
+   end
+
    definition.on_deactivate = function(entity, removal)
       release_forceload(entity)
       if original_on_deactivate then
