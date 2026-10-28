@@ -104,6 +104,10 @@ Der Mod lädt eine öffentliche Lua-Tabelle namens `minecart_lift`.
 
 Der Quellcode steht unter der MIT-Lizenz. Siehe `LICENSE.txt`.
 
-Die aktive Stahlwinden-Textur ist ein eigenes Projekt-Asset. Zwei vorläufige,
-derzeit teilweise noch verwendete Grafiken aus dem Ropes-Mod haben eine
-ungeklärte Lizenz. Details stehen in `THIRD_PARTY_ASSETS.md`.
+Die aktive Stahlwinden-Textur ist ein eigenes Projekt-Asset. Die verwendete
+Seilgrafik und eine ungenutzte Quellgrafik aus dem Ropes-Mod haben eine
+ungeklärte Lizenz; die offene Lizenzfrage wird im Ropes-Projekt in Issue #25
+verfolgt. Die Chest-Cart-Grafiken verwenden Material aus Minetest Game und
+stehen entsprechend unter CC BY-SA 3.0. Cart-Quellgrafiken und Seilgeräusche
+stehen unter CC0. Vollständige Quellen-, Urheber- und Lizenzangaben stehen in
+`THIRD_PARTY_ASSETS.md`.

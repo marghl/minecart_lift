@@ -1,5 +1,9 @@
 # Third-party assets
 
+This file lists every redistributed third-party media file and every project
+asset derived from third-party media. The project's MIT license does not apply
+to these files unless explicitly stated otherwise below.
+
 ## `textures/minecart_lift_ropes_item.png`
 
 - Original filename: `textures/ropes_item.png`
@@ -17,10 +21,10 @@ the rope textures' license:
 
 <https://github.com/minetest-mods/ropes/issues/25>
 
-This file is included temporarily for development and evaluation. It is
-explicitly excluded from this project's MIT license. Do not redistribute or
-publish it as part of a release until its license has been clarified or the
-file has been replaced with original artwork.
+This file is explicitly excluded from this project's MIT license. It remains
+in the project with its license status clearly marked as unresolved. Anyone
+redistributing the project should review the upstream issue and understand
+that no confirmed artwork license is currently available for this file.
 
 ## `textures/minecart_lift_rope.png`
 
@@ -31,7 +35,12 @@ file has been replaced with original artwork.
 - Original author: not established from the available repository metadata
 - Artwork license: **unclear / legally problematic**
 
-The same temporary-use restriction described above applies to this file.
+The same unresolved license status described above applies to this file. It is
+retained in the project, but it is not covered by the project's MIT license.
+
+The unresolved upstream license question is tracked in:
+
+<https://github.com/minetest-mods/ropes/issues/25>
 
 ## Rope creak sounds
 
@@ -52,3 +61,84 @@ The same temporary-use restriction described above applies to this file.
 The upstream `sounds/license.txt` identifies these sounds as public domain via
 CC0. They may be used, modified, and redistributed without attribution; the
 source is retained here for provenance and credit.
+
+## Chest Cart textures and GIMP source files
+
+### Active derived artwork
+
+- Local files:
+  - `textures/minecart_lift_chest_front.png`
+  - `textures/minecart_lift_chest_side.png`
+  - `textures/minecart_lift_chest_top.png`
+  - `textures/minecart_lift_chest_front.xcf`
+  - `textures/minecart_lift_chest_side.xcf`
+  - `textures/minecart_lift_chest_top.xcf`
+- Chest source files:
+  - `mods/default/textures/default_chest_front.png`
+  - `mods/default/textures/default_chest_side.png`
+  - `mods/default/textures/default_chest_top.png`
+- Cart source files:
+  - `mods/carts/textures/carts_cart_front.png`
+  - `mods/carts/textures/carts_cart_side.png`
+  - `mods/carts/textures/carts_cart_top.png`
+- Source project: Minetest Game
+- Source repository: <https://github.com/luanti-org/minetest_game>
+- Changes: the chest and cart artwork was combined, rearranged, masked, and
+  resized to match the custom Chest Cart model
+- License: **CC BY-SA 3.0 Unported**
+- Copyright: Minetest Game developers and contributors
+
+The chest source artwork is licensed under CC BY-SA 3.0. The cart source
+artwork is CC0, but the combined work remains subject to the ShareAlike terms
+of the chest artwork. The six derived PNG and XCF files listed above are
+therefore distributed under CC BY-SA 3.0, not under this project's MIT
+license. See the upstream license and attribution list:
+
+<https://github.com/luanti-org/minetest_game/blob/master/mods/default/license.txt>
+
+### Unmodified Default Chest copies
+
+- Local files:
+  - `textures/chest_cart_front.png`
+  - `textures/chest_cart_side.png`
+  - `textures/chest_cart_top.png`
+- Original filenames:
+  - `default_chest_front.png`
+  - `default_chest_side.png`
+  - `default_chest_top.png`
+- Source project: Minetest Game `default` mod
+- Source repository: <https://github.com/luanti-org/minetest_game>
+- Changes: filenames only; image contents are unmodified
+- License: **CC BY-SA 3.0 Unported**
+- Copyright: Minetest Game developers and contributors
+- Usage status: retained as artwork source files but not referenced by the mod
+
+These files are distributed under CC BY-SA 3.0, not under this project's MIT
+license.
+
+### Unmodified Carts copies
+
+- Local files:
+  - `textures/cart_front.png`
+  - `textures/cart_side.png`
+  - `textures/cart_top.png`
+- Original filenames:
+  - `carts_cart_front.png`
+  - `carts_cart_side.png`
+  - `carts_cart_top.png`
+- Source project: Minetest Game `carts` mod
+- Source repository: <https://github.com/luanti-org/minetest_game>
+- Original artwork: PixelBOX by Gambit
+- Changes: filenames only; image contents are unmodified
+- License: **CC0 / public domain dedication**
+- Usage status: retained as artwork source files but not referenced by the mod
+
+The files may be used, modified, and redistributed without attribution under
+CC0. Their source and author are retained here for provenance and credit.
+
+## Original project artwork
+
+The following artwork was created for this project and is covered by the
+project's MIT license:
+
+- `textures/minecart_lift_winch.png`
